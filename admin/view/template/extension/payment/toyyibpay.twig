@@ -1,0 +1,166 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <button type="submit" form="form-toyyibpay" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+            <h1>{{ heading_title }}</h1>
+            <ul class="breadcrumb">
+              {% for breadcrumb in breadcrumbs %}
+				<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+			  {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+	  {% if error_warning %}
+		<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+	  {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-toyyibpay" class="form-horizontal">
+                    
+					<div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-api-key"><span data-toggle="tooltip" title="{{ help_api_key }}">{{ toyyibpay_api_key }}</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="toyyibpay_api_key_value" value="{{ toyyibpay_api_key_value }}" placeholder="{{ toyyibpay_api_key }}" id="input-api-key" class="form-control" />
+                            {% if error_api_key %}
+                                <div class="text-danger">{{ error_api_key }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+					
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-api-environment"><span data-toggle="tooltip" title="{{ help_api_environment }}">{{ toyyibpay_api_environment }}</span></label>
+                        <div class="col-sm-10">
+                            <select name="toyyibpay_api_environment_value" id="input-api-environment" class="form-control">
+                                <option value="">[ Select ]</option>
+								
+								<option value="1" {% if toyyibpay_api_environment_value == '1' %} selected="selected"  {% endif %}>Production Mode</option>
+								<option value="2" {% if toyyibpay_api_environment_value == '2' %} selected="selected"  {% endif %}>Sandbox Mode</option>
+                            </select>
+                            {% if error_api_environment %}
+                                <div class="text-danger">{{ error_api_environment }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+					
+                    <div class="form-group required">
+						<label class="col-sm-2 control-label" for="input-category-code"><span data-toggle="tooltip" title="{{ help_category_code }}">{{ toyyibpay_category_code }}</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="toyyibpay_category_code_value" value="{{ toyyibpay_category_code_value }}" placeholder="{{ toyyibpay_category_code }}" id="input-category-code" class="form-control" />
+                        </div>
+                    </div>
+					
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-payment-channel"><span data-toggle="tooltip" title="{{ help_payment_channel }}">{{ toyyibpay_payment_channel }}</span></label>
+                        <div class="col-sm-10">
+                            <select name="toyyibpay_payment_channel_value" id="input-payment-channel" class="form-control">
+							<option value="0" {% if toyyibpay_payment_channel_value == '0' %} selected="selected"  {% endif %} >Online Banking (FPX)</option>
+							<option value="1" {% if toyyibpay_payment_channel_value == '1' %} selected="selected"  {% endif %} >Debit / Credit Card</option>
+							<option value="2" {% if toyyibpay_payment_channel_value == '2' %} selected="selected"  {% endif %} >Online Banking (FPX) & Debit / Credit Card</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-payment-charge"><span data-toggle="tooltip" title="{{ help_payment_charge }}">{{ toyyibpay_payment_charge }}</span></label>
+                        <div class="col-sm-10">
+                            <select name="toyyibpay_payment_charge_value" id="input-payment-charge" class="form-control">
+							<option value="0" {% if toyyibpay_payment_charge_value == '0' %} selected="selected"  {% endif %} >All fee charge on transaction amount</option>
+							<option value="1" {% if toyyibpay_payment_charge_value == '1' %} selected="selected"  {% endif %} >Only Online Banking (FPX) fee charge on customer</option>
+							<option value="2" {% if toyyibpay_payment_charge_value == '2' %} selected="selected"  {% endif %} >Only Debit / Credit Card fee charge on customer</option>
+                            <option value="3" {% if toyyibpay_payment_charge_value == '3' %} selected="selected"  {% endif %} >All transaction fee charge on customer</option>
+                            </select>
+                        </div>
+                    </div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-company-email"><span data-toggle="tooltip" title="{{ help_company_email }}">{{ toyyibpay_company_email }}</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="toyyibpay_company_email_value" value="{{ toyyibpay_company_email_value }}" placeholder="{{ toyyibpay_company_email }}" id="input-company_email" class="form-control" />
+                        </div>
+                    </div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-company-phone"><span data-toggle="tooltip" title="{{ help_company_phone }}">{{ toyyibpay_company_phone }}</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="toyyibpay_company_phone_value" value="{{ toyyibpay_company_phone_value }}" placeholder="{{ toyyibpay_company_phone }}" id="input-company_phone" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-extra-email"><span data-toggle="tooltip" title="{{ help_extra_email }}">{{ toyyibpay_extra_email }}</span></label>
+                        <div class="col-sm-10">
+                            <textarea name="toyyibpay_extra_email_value"/ rows="4" cols="100">{{ toyyibpay_extra_email_value }}</textarea>
+                        </div>
+                    </div>
+					
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-minlimit"><span data-toggle="tooltip" title="{{ help_minlimit }}">{{ entry_minlimit }}</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" name="toyyibpay_minlimit" value="{{ toyyibpay_minlimit }}" placeholder="{{ entry_minlimit }}" id="input-minlimit" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_completed_status }}</label>
+                        <div class="col-sm-10">
+                            <select name="toyyibpay_completed_status_id" class="form-control">
+								{% for order_status in order_statuses %}
+									{% if order_status.order_status_id == toyyibpay_completed_status_id %}
+                                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                                    {% else %}
+                                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                    {% endif %}
+                                 {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
+                        <div class="col-sm-10">
+                            <select name="toyyibpay_geo_zone_id" id="input-geo-zone" class="form-control">
+                                <option value="0">{{ text_all_zones }}</option>
+								{% for geo_zone in geo_zones %}
+									{% if geo_zone.geo_zone_id == toyyibpay_geo_zone_id %}
+                                <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
+                                    {% else %}
+                                <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
+                                    {% endif %}
+								{% endfor %}
+                               
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                            <select name="toyyibpay_status" id="input-status" class="form-control">
+								{% if toyyibpay_status %}
+                                <option value="1" selected="selected">{{ text_enabled }}</option>
+                                <option value="0">{{ text_disabled }}</option>
+                                 {% else %}
+                                <option value="1">{{ text_enabled }}</option>
+                                <option value="0" selected="selected">{{ text_disabled }}</option>
+                                 {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="toyyibpay_sort_order" value="{{ toyyibpay_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{ footer }}
